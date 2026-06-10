@@ -1,0 +1,16 @@
+# 環境變數（絕對不能推上去）
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Build output
+dist/
+build/
+
+# OS
+.DS_Store
+Thumbs.db

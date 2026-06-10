@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   分帳無痛 — Theme system (3 directions × light/dark)
+   ============================================================ */
+
+:root {
+  --positive: #16a34a;
+  --negative: #dc2626;
+  --radius-card: 14px;
+  --font-sans: "Noto Sans TC", "Inter", -apple-system, BlinkMacSystemFont,
+    "PingFang TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Direction A (預設) --- */
+:root[data-dir="a"] {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --border: #e5e8ec;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #3b82f6;
+  --primary-weak: rgba(59, 130, 246, 0.1);
+  --primary-grad: #3b82f6;
+  --positive: #15a34a;
+  --negative: #dc2626;
+  --radius-card: 12px;
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+  --shadow-pop: 0 10px 30px -8px rgba(15, 23, 42, 0.18);
+  --letter: -0.01em;
+}
+:root[data-dir="a"][data-mode="dark"] {
+  --bg: #0a0d13;
+  --surface: #11151d;
+  --surface-2: #161b25;
+  --border: #232a37;
+  --text: #e6e9ef;
+  --muted: #8b94a3;
+  --primary: #4f93f7;
+  --primary-weak: rgba(79, 147, 247, 0.16);
+  --primary-grad: #4f93f7;
+  --positive: #34d399;
+  --negative: #f87171;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-pop: 0 16px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+/* --- Direction B — Notion 溫潤 --- */
+:root[data-dir="b"] {
+  --bg: #faf9f6;
+  --surface: #ffffff;
+  --surface-2: #f4f1ec;
+  --border: #ece7df;
+  --text: #2b2926;
+  --muted: #8c857a;
+  --primary: #3b82f6;
+  --primary-weak: rgba(59, 130, 246, 0.1);
+  --primary-grad: #3b82f6;
+  --positive: #2f9e44;
+  --negative: #e03131;
+  --radius-card: 18px;
+  --shadow-card: 0 2px 4px rgba(70, 56, 40, 0.04), 0 6px 18px rgba(70, 56, 40, 0.05);
+  --shadow-pop: 0 18px 44px -12px rgba(70, 56, 40, 0.22);
+  --letter: 0em;
+}
+:root[data-dir="b"][data-mode="dark"] {
+  --bg: #16140f;
+  --surface: #1f1c16;
+  --surface-2: #272320;
+  --border: #353029;
+  --text: #ece6dc;
+  --muted: #9c948a;
+  --primary: #5b9bf8;
+  --primary-weak: rgba(91, 155, 248, 0.16);
+  --primary-grad: #5b9bf8;
+  --positive: #51cf66;
+  --negative: #ff8787;
+  --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.35);
+  --shadow-pop: 0 20px 48px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* --- Direction C — 活潑彩色 --- */
+:root[data-dir="c"] {
+  --bg: #f4f5fe;
+  --surface: #ffffff;
+  --surface-2: #edeefb;
+  --border: #e3e4f4;
+  --text: #181a2e;
+  --muted: #6a6e8c;
+  --primary: #3b82f6;
+  --primary-weak: rgba(59, 130, 246, 0.12);
+  --primary-grad: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  --positive: #16a34a;
+  --negative: #e11d48;
+  --radius-card: 16px;
+  --shadow-card: 0 4px 14px rgba(59, 80, 200, 0.08);
+  --shadow-pop: 0 20px 46px -12px rgba(59, 80, 200, 0.32);
+  --letter: -0.005em;
+}
+:root[data-dir="c"][data-mode="dark"] {
+  --bg: #0a0b18;
+  --surface: #14162a;
+  --surface-2: #1c1e37;
+  --border: #282b48;
+  --text: #e9eaf7;
+  --muted: #8b8fb4;
+  --primary: #5b8df9;
+  --primary-weak: rgba(91, 141, 249, 0.18);
+  --primary-grad: linear-gradient(135deg, #5b8df9 0%, #818cf8 100%);
+  --positive: #34d399;
+  --negative: #fb7185;
+  --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-pop: 0 22px 50px -12px rgba(0, 0, 0, 0.75);
+}
+
+/* --- Base --- */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  letter-spacing: var(--letter, -0.01em);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.4s var(--ease), color 0.4s var(--ease);
+}
+
+::selection { background: var(--primary-weak); }
+
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+  border: 2px solid var(--bg);
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* --- 動畫 --- */
+@keyframes pop-in {
+  from { transform: translateY(8px) scale(0.985); }
+  to { transform: none; }
+}
+@keyframes fade-in {
+  from { transform: translateY(4px); }
+  to { transform: none; }
+}
+@keyframes slide-up {
+  from { transform: translateY(20px); }
+  to { transform: none; }
+}
+@keyframes collapse-out {
+  to {
+    opacity: 0;
+    transform: translateX(40px) scale(0.96);
+    max-height: 0;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+@keyframes count-flash {
+  0% { color: var(--primary); }
+  100% { color: inherit; }
+}
+
+.anim-pop { animation: pop-in 0.4s var(--ease) both; }
+.anim-fade { animation: fade-in 0.3s var(--ease) both; }
+.anim-slide { animation: slide-up 0.45s var(--ease) both; }
+.collapsing {
+  animation: collapse-out 0.4s var(--ease) forwards;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* 隱藏捲軸但保留捲動功能（水平 chip 列使用） */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* 手機底部安全區（iPhone notch） */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+}

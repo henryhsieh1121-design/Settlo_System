@@ -51,12 +51,12 @@ app.use('/expenses', expensesRouter);     // 僅處理 DELETE /expenses/:id
 // 統一錯誤處理（必須放在所有路由之後）
 app.use(errorHandler);
 
-// 合併部署：production 時 Express 直接 serve React build 檔案
+// 合併部署：production 時 Express 直接 serve React build 檔案（build 時複製到 public/）
 if (process.env.NODE_ENV === 'production') {
-  const frontendDist = path.join(__dirname, '../../splitwise-frontend/dist');
-  app.use(express.static(frontendDist));
+  const publicDir = path.join(__dirname, '../public');
+  app.use(express.static(publicDir));
   app.get('*', (_req, res) => {
-    res.sendFile(path.join(frontendDist, 'index.html'));
+    res.sendFile(path.join(publicDir, 'index.html'));
   });
 }
 

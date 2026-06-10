@@ -24,7 +24,7 @@ async function runMigrations() {
 
 const app = express();
 
-// CORS：開發環境 fallback localhost:5173，生產環境必須明確設定 FRONTEND_URL
+// 合併部署時前後端同源，不需要 CORS；分開部署時需設定 FRONTEND_URL
 const corsOrigin = process.env.FRONTEND_URL ||
   (process.env.NODE_ENV === 'production' ? false : 'http://localhost:5173');
 app.use(cors({ origin: corsOrigin, credentials: true }));
@@ -50,6 +50,15 @@ app.use('/expenses', expensesRouter);     // 僅處理 DELETE /expenses/:id
 
 // 統一錯誤處理（必須放在所有路由之後）
 app.use(errorHandler);
+
+// 合併部署：production 時 Express 直接 serve React build 檔案
+if (process.env.NODE_ENV === 'production') {
+  const frontendDist = path.join(__dirname, '../../splitwise-frontend/dist');
+  app.use(express.static(frontendDist));
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 3001;
 runMigrations()

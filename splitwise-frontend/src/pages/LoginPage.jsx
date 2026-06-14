@@ -12,18 +12,11 @@ const AVATAR_SHORTS = ['哲', '君', '豪', '婷'];
 function Logo({ size = 34 }) {
   return (
     <div className="flex items-center gap-2.5 select-none">
-      <div
-        className="relative grid place-items-center rounded-xl shadow-sm"
-        style={{ width: size, height: size, background: 'var(--primary-grad)' }}
-      >
-        {/* 算盤珠形 S：兩顆珠子錯位排列呼應「算」與「Settlo」首字母 */}
-        <svg width={size * 0.65} height={size * 0.65} viewBox="0 0 24 24" fill="none">
-          <line x1="3" y1="8" x2="21" y2="8" stroke="white" strokeWidth="1.8" strokeLinecap="round" opacity="0.45" />
-          <line x1="3" y1="16" x2="21" y2="16" stroke="white" strokeWidth="1.8" strokeLinecap="round" opacity="0.45" />
-          <circle cx="15" cy="8" r="3.5" fill="white" />
-          <circle cx="9" cy="16" r="3.5" fill="white" />
-        </svg>
-      </div>
+      <img
+        src="/Logo.png"
+        alt="算了吧 Settlo"
+        style={{ width: size, height: size, borderRadius: '10px', objectFit: 'cover' }}
+      />
       <div className="leading-tight">
         <span className="font-extrabold text-[16px] tracking-tight block">算了吧</span>
         <span className="text-[10px] font-semibold tracking-widest block" style={{ color: 'var(--muted)', letterSpacing: '0.15em' }}>SETTLO</span>
@@ -104,14 +97,11 @@ export default function LoginPage({ initialMode = 'login' }) {
 
         {/* 左上 Logo */}
         <div className="relative flex items-center gap-2.5 text-white">
-          <div className="grid place-items-center w-9 h-9 rounded-xl bg-white/20 backdrop-blur">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <line x1="3" y1="8" x2="21" y2="8" stroke="white" strokeWidth="1.8" strokeLinecap="round" opacity="0.5" />
-              <line x1="3" y1="16" x2="21" y2="16" stroke="white" strokeWidth="1.8" strokeLinecap="round" opacity="0.5" />
-              <circle cx="15" cy="8" r="3.5" fill="white" />
-              <circle cx="9" cy="16" r="3.5" fill="white" />
-            </svg>
-          </div>
+          <img
+            src="/Logo.png"
+            alt="算了吧 Settlo"
+            style={{ width: 36, height: 36, borderRadius: '10px', objectFit: 'cover' }}
+          />
           <div className="leading-tight">
             <span className="font-extrabold text-base block">算了吧</span>
             <span className="text-[10px] font-semibold tracking-widest block opacity-70">SETTLO</span>

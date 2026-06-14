@@ -15,10 +15,19 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Response interceptor：token 過期時自動登出
+// Response interceptor：自動重試冷啟動失敗 + token 過期登出
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const config = error.config;
+
+    // 網路錯誤或 503（Render 冷啟動）：等 3 秒後重試一次
+    if (!config._retried && (!error.response || error.response.status === 503)) {
+      config._retried = true;
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      return api(config);
+    }
+
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       const redirect = encodeURIComponent(window.location.pathname + window.location.search);

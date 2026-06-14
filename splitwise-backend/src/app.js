@@ -34,7 +34,7 @@ app.use(express.json());
 // Auth rate limiter：每 IP 15 分鐘最多 10 次登入/註冊，防暴力破解
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: process.env.NODE_ENV === 'production' ? 20 : 1000,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: '請求過於頻繁，請稍後再試' },
